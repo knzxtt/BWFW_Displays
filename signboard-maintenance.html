@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, initial-scale=1.0">
+<title>Maintenance Performance — Best Western Fort Wayne</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a1628;
+    color: #ffffff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 56px 20px;
+    border-bottom: 3px solid #c9a227;
+  }
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  .bw-badge {
+    background: #c9a227;
+    color: #0a1628;
+    font-weight: 900;
+    font-size: 22px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+  }
+  .hotel-name { font-size: 26px; font-weight: 700; color: #e8e8e8; }
+  .header-title { font-size: 38px; font-weight: 800; color: #c9a227; letter-spacing: 1px; }
+  .header-date { font-size: 20px; color: #9eb4d4; }
+
+  /* ── Main ── */
+  .main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 380px 1fr 300px;
+    gap: 0;
+    padding: 28px 56px;
+  }
+
+  /* ── Left: KPI Cards ── */
+  .kpi-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 36px;
+    border-right: 2px solid #1e3a5f;
+  }
+
+  .kpi-card {
+    background: #0f2340;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #1e3a5f;
+    text-align: center;
+  }
+  .kpi-card.featured { border: 2px solid #c9a227; background: linear-gradient(135deg, #0f2340, #1a3a6b); }
+
+  .kpi-label { font-size: 15px; color: #9eb4d4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+
+  .kpi-big { font-size: 64px; font-weight: 900; line-height: 1; }
+  .kpi-big.green  { color: #4cdf89; }
+  .kpi-big.yellow { color: #f5c518; }
+  .kpi-big.red    { color: #ff6b6b; }
+
+  .kpi-sub { font-size: 16px; color: #7a96b8; margin-top: 8px; }
+
+  .donut-wrap { position: relative; width: 140px; height: 140px; margin: 0 auto; }
+  .donut-label {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .donut-label .pct { font-size: 28px; font-weight: 900; color: #4cdf89; }
+  .donut-label .sub { font-size: 12px; color: #9eb4d4; }
+
+  /* Progress bars */
+  .progress-row { margin-top: 6px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px; }
+  .progress-label .name { color: #b0c8e8; }
+  .progress-label .nums { color: #7a96b8; }
+  .progress-bar-bg { background: #1e3a5f; border-radius: 4px; height: 10px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 4px; background: #4cdf89; transition: width 1s ease; }
+  .progress-bar-fill.yellow { background: #f5c518; }
+  .progress-bar-fill.red    { background: #ff6b6b; }
+
+  /* ── Center: Chart ── */
+  .chart-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 0 36px;
+  }
+  .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .chart-title  { font-size: 20px; font-weight: 700; color: #9eb4d4; text-transform: uppercase; letter-spacing: 2px; }
+  .chart-sub    { font-size: 14px; color: #4a6080; }
+  .chart-wrap   { flex: 1; position: relative; min-height: 0; }
+
+  /* ── Right: Category Panel ── */
+  .cat-panel {
+    padding-left: 36px;
+    border-left: 2px solid #1e3a5f;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cat-title { font-size: 18px; font-weight: 700; color: #9eb4d4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+
+  .cat-row {
+    background: #0f2340;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid #1e3a5f;
+  }
+  .cat-row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .cat-name { font-size: 15px; font-weight: 600; color: #d4e6f8; }
+  .cat-pct  { font-size: 15px; font-weight: 800; }
+  .cat-pct.green  { color: #4cdf89; }
+  .cat-pct.yellow { color: #f5c518; }
+  .cat-pct.red    { color: #ff6b6b; }
+  .cat-count { font-size: 12px; color: #7a96b8; }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 12px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1e3a5f;
+  }
+  .footer-stat { font-size: 16px; color: #7a96b8; }
+  .footer-stat span { color: #c9a227; font-weight: 700; }
+  .refreshed { font-size: 14px; color: #4a6080; }
+
+  .open-alert {
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.3);
+    border-radius: 8px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #ff9999;
+    font-weight: 600;
+  }
+  .open-alert .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="bw-badge">BEST WESTERN</div>
+    <div class="hotel-name">Fort Wayne, Indiana</div>
+  </div>
+  <div class="header-title">🔧 Maintenance Performance</div>
+  <div class="header-date" id="headerDate"></div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Left: KPI Cards -->
+  <div class="kpi-panel">
+
+    <!-- This Month -->
+    <div class="kpi-card featured">
+      <div class="kpi-label">April — Tickets Closed</div>
+      <div class="kpi-big green">8 <span style="font-size:28px;color:#9eb4d4;">/ 18</span></div>
+      <div class="kpi-sub">44% closure rate this month</div>
+    </div>
+
+    <!-- Last Month -->
+    <div class="kpi-card">
+      <div class="kpi-label">March — Tickets Closed</div>
+      <div class="kpi-big green">60 <span style="font-size:28px;color:#9eb4d4;">/ 70</span></div>
+      <div class="kpi-sub">86% closure rate — great work!</div>
+    </div>
+
+    <!-- Open tickets -->
+    <div class="open-alert">
+      <div class="dot"></div>
+      17 tickets currently open
+    </div>
+
+    <!-- All-time resolved -->
+    <div class="kpi-card">
+      <div class="kpi-label">All-Time Resolved</div>
+      <div class="kpi-big green">636</div>
+      <div class="kpi-sub">out of 659 total tickets</div>
+    </div>
+
+  </div>
+
+  <!-- Center: Weekly Chart -->
+  <div class="chart-panel">
+    <div class="chart-header">
+      <div class="chart-title">Weekly Ticket Closure</div>
+      <div class="chart-sub">Past 9 weeks — Opened vs. Closed</div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="maintenanceChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Right: Category Breakdown -->
+  <div class="cat-panel">
+    <div class="cat-title">By Category (30 days)</div>
+
+    <div class="cat-row">
+      <div class="cat-row-header">
+        <div class="cat-name">General</div>
+        <div class="cat-pct green">77%</div>
+      </div>
+      <div class="cat-count">10 closed of 13 total</div>
+      <div style="margin-top:8px;" class="progress-bar-bg"><div class="progress-bar-fill" style="width:77%"></div></div>
+    </div>
+
+    <div class="cat-row">
+      <div class="cat-row-header">
+        <div class="cat-name">Plumbing</div>
+        <div class="cat-pct yellow">50%</div>
+      </div>
+      <div class="cat-count">6 closed of 12 total</div>
+      <div style="margin-top:8px;" class="progress-bar-bg"><div class="progress-bar-fill yellow" style="width:50%"></div></div>
+    </div>
+
+    <div class="cat-row">
+      <div class="cat-row-header">
+        <div class="cat-name">Furniture / Fixture</div>
+        <div class="cat-pct yellow">45%</div>
+      </div>
+      <div class="cat-count">5 closed of 11 total</div>
+      <div style="margin-top:8px;" class="progress-bar-bg"><div class="progress-bar-fill yellow" style="width:45%"></div></div>
+    </div>
+
+    <div class="cat-row">
+      <div class="cat-row-header">
+        <div class="cat-name">HVAC</div>
+        <div class="cat-pct green">100%</div>
+      </div>
+      <div class="cat-count">4 closed of 4 total</div>
+      <div style="margin-top:8px;" class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+    </div>
+
+    <div class="cat-row">
+      <div class="cat-row-header">
+        <div class="cat-name">Electrical / TV</div>
+        <div class="cat-pct green">100%</div>
+      </div>
+      <div class="cat-count">3 closed of 3 total</div>
+      <div style="margin-top:8px;" class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+    </div>
+
+    <div class="cat-row">
+      <div class="cat-row-header">
+        <div class="cat-name">Cleanliness</div>
+        <div class="cat-pct green">100%</div>
+      </div>
+      <div class="cat-count">2 closed of 2 total</div>
+      <div style="margin-top:8px;" class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-stat">All-time closure rate: <span>96.5%</span> (636 / 659)</div>
+  <div class="footer-stat">Data Source: <span>Hotel IQ Maintenance Tracker</span></div>
+  <div class="refreshed" id="refreshTime"></div>
+</div>
+
+<script>
+// ── Embedded data ──────────────────────────────────────────────────────────
+const WEEKS = [
+  { label: "2/13", total: 2,  closed: 2  },
+  { label: "2/18", total: 10, closed: 9  },
+  { label: "2/23", total: 17, closed: 15 },
+  { label: "3/2",  total: 10, closed: 7  },
+  { label: "3/9",  total: 36, closed: 34 },
+  { label: "3/16", total: 7,  closed: 6  },
+  { label: "3/23", total: 9,  closed: 7  },
+  { label: "3/30", total: 10, closed: 7  },
+  { label: "4/6",  total: 15, closed: 6  },
+];
+
+// ── DOM ────────────────────────────────────────────────────────────────────
+const now = new Date();
+document.getElementById('headerDate').textContent =
+  now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+document.getElementById('refreshTime').textContent =
+  'Last updated: ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+
+// ── Chart ──────────────────────────────────────────────────────────────────
+const pctColors = WEEKS.map(w => {
+  const p = w.closed / w.total;
+  if (p >= 0.80) return 'rgba(76,223,137,0.85)';
+  if (p >= 0.60) return 'rgba(245,197,24,0.85)';
+  return 'rgba(255,107,107,0.85)';
+});
+
+const ctx = document.getElementById('maintenanceChart').getContext('2d');
+new Chart(ctx, {
+  data: {
+    labels: WEEKS.map(w => 'Wk ' + w.label),
+    datasets: [
+      {
+        type: 'bar',
+        label: 'Opened',
+        data: WEEKS.map(w => w.total),
+        backgroundColor: 'rgba(30,58,95,0.9)',
+        borderColor: '#2a5080',
+        borderWidth: 1,
+        borderRadius: 6,
+        order: 2,
+      },
+      {
+        type: 'bar',
+        label: 'Closed',
+        data: WEEKS.map(w => w.closed),
+        backgroundColor: pctColors,
+        borderRadius: 6,
+        order: 1,
+      },
+      {
+        type: 'line',
+        label: '% Closed',
+        data: WEEKS.map(w => Math.round(100 * w.closed / w.total)),
+        borderColor: '#c9a227',
+        borderWidth: 3,
+        pointBackgroundColor: '#c9a227',
+        pointRadius: 6,
+        tension: 0.3,
+        fill: false,
+        yAxisID: 'pct',
+        order: 0,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 1000, easing: 'easeOutQuart' },
+    plugins: {
+      legend: {
+        labels: { color: '#9eb4d4', font: { size: 14 }, boxWidth: 18, padding: 20 }
+      },
+      tooltip: {
+        callbacks: {
+          afterBody: ctx => {
+            const i = ctx[0].dataIndex;
+            return [`Closure Rate: ${Math.round(100*WEEKS[i].closed/WEEKS[i].total)}%`];
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { color: '#7a96b8', font: { size: 14 } }
+      },
+      y: {
+        position: 'left',
+        grid: { color: 'rgba(255,255,255,0.06)' },
+        ticks: { color: '#7a96b8', font: { size: 13 }, stepSize: 5 },
+        title: { display: true, text: 'Ticket Count', color: '#4a6080', font: { size: 13 } }
+      },
+      pct: {
+        position: 'right',
+        min: 0, max: 110,
+        grid: { drawOnChartArea: false },
+        ticks: { color: '#c9a227', font: { size: 13 }, callback: v => v + '%' },
+        title: { display: true, text: '% Closed', color: '#c9a227', font: { size: 13 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
