@@ -6,231 +6,80 @@
 <title>Team Recognition — Best Western Fort Wayne</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
-    background: #0a1628;
-    color: #ffffff;
+    background: #0a1628; color: #ffffff;
     font-family: 'Segoe UI', Arial, sans-serif;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    width: 1920px; height: 1080px; overflow: hidden;
+    display: flex; flex-direction: column;
   }
-
-  /* ── Header ── */
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 28px 56px 20px;
-    border-bottom: 3px solid #c9a227;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 56px 20px; border-bottom: 3px solid #c9a227;
   }
   .header-left { display: flex; align-items: center; gap: 20px; }
-  .bw-badge {
-    background: #c9a227;
-    color: #0a1628;
-    font-weight: 900;
-    font-size: 22px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    letter-spacing: 1px;
-  }
-  .hotel-name { font-size: 26px; font-weight: 700; color: #e8e8e8; }
-  .header-title { font-size: 38px; font-weight: 800; color: #c9a227; letter-spacing: 1px; }
-  .header-date  { font-size: 20px; color: #9eb4d4; }
-
-  /* ── Main ── */
+  .bw-badge { background:#c9a227; color:#0a1628; font-weight:900; font-size:22px; padding:8px 16px; border-radius:6px; letter-spacing:1px; }
+  .hotel-name { font-size:26px; font-weight:700; color:#e8e8e8; }
+  .header-title { font-size:38px; font-weight:800; color:#c9a227; letter-spacing:1px; }
+  .header-date  { font-size:20px; color:#9eb4d4; }
   .main {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 0;
-    padding: 28px 56px;
-    min-height: 0;
+    flex:1; display:grid; grid-template-columns:400px 1fr;
+    padding:28px 56px; min-height:0;
   }
-
-  /* ── Left: Leaderboard ── */
-  .leaderboard {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-right: 36px;
-    border-right: 2px solid #1e3a5f;
-  }
-
-  .lb-title {
-    font-size: 17px;
-    font-weight: 700;
-    color: #9eb4d4;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 4px;
-  }
-
+  .leaderboard { display:flex; flex-direction:column; gap:14px; padding-right:36px; border-right:2px solid #1e3a5f; }
+  .lb-title { font-size:17px; font-weight:700; color:#9eb4d4; text-transform:uppercase; letter-spacing:2px; margin-bottom:2px; }
   .lb-card {
-    background: #0f2340;
-    border-radius: 14px;
-    padding: 18px 20px;
-    border: 1px solid #1e3a5f;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    transition: border-color 0.3s;
+    background:#0f2340; border-radius:14px; padding:16px 18px;
+    border:1px solid #1e3a5f;
+    display:flex; align-items:center; gap:16px;
+    transition:border-color 0.3s, background 0.3s;
   }
-  .lb-card.active { border-color: #c9a227; background: linear-gradient(135deg, #0f2340, #1a3a6b); }
-  .lb-card.rank1  { border-color: #c9a227; }
-  .lb-card.rank2  { border-color: #8aa8c8; }
-  .lb-card.rank3  { border-color: #b87333; }
-
-  .lb-rank {
-    font-size: 28px;
-    font-weight: 900;
-    width: 36px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-  .rank1 .lb-rank { color: #c9a227; }
-  .rank2 .lb-rank { color: #9eb4d4; }
-  .rank3 .lb-rank { color: #cd7f32; }
-
-  .lb-avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 800;
-    flex-shrink: 0;
-    color: #0a1628;
-  }
-
-  .lb-info { flex: 1; }
-  .lb-name { font-size: 20px; font-weight: 700; color: #ffffff; }
-  .lb-dept { font-size: 14px; color: #7a96b8; margin-top: 2px; }
-
-  .lb-count {
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .lb-count .num  { font-size: 32px; font-weight: 900; color: #c9a227; }
-  .lb-count .word { font-size: 12px; color: #7a96b8; }
-
-  .stars { color: #c9a227; font-size: 14px; margin-top: 2px; }
-
-  /* ── Right: Quote Carousel ── */
-  .carousel-panel {
-    padding-left: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 24px;
-    min-height: 0;
-  }
-
-  .carousel-header {
-    font-size: 17px;
-    font-weight: 700;
-    color: #9eb4d4;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
+  .lb-card.active { border-color:#c9a227; background:linear-gradient(135deg,#0f2340,#1a3a6b); }
+  .lb-card.rank1 { border-color:#c9a227; }
+  .lb-card.rank2 { border-color:#8aa8c8; }
+  .lb-card.rank3 { border-color:#b87333; }
+  .lb-rank { font-size:26px; font-weight:900; width:34px; text-align:center; flex-shrink:0; }
+  .rank1 .lb-rank { color:#c9a227; }
+  .rank2 .lb-rank { color:#9eb4d4; }
+  .rank3 .lb-rank { color:#cd7f32; }
+  .lb-avatar { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; flex-shrink:0; color:#0a1628; }
+  .lb-info { flex:1; }
+  .lb-name  { font-size:19px; font-weight:700; color:#ffffff; }
+  .lb-dept  { font-size:13px; color:#7a96b8; margin-top:2px; }
+  .stars    { color:#c9a227; font-size:13px; margin-top:2px; }
+  .lb-count { text-align:right; flex-shrink:0; }
+  .lb-count .num  { font-size:30px; font-weight:900; color:#c9a227; }
+  .lb-count .word { font-size:12px; color:#7a96b8; }
+  .carousel-panel { padding-left:40px; display:flex; flex-direction:column; justify-content:center; gap:20px; min-height:0; }
+  .carousel-header { font-size:17px; font-weight:700; color:#9eb4d4; text-transform:uppercase; letter-spacing:2px; }
   .quote-card {
-    background: #0f2340;
-    border: 1px solid #1e3a5f;
-    border-left: 6px solid #c9a227;
-    border-radius: 14px;
-    padding: 32px 36px;
-    display: none;
-    animation: fadeIn 0.8s ease;
+    background:#0f2340; border:1px solid #1e3a5f; border-left:6px solid #c9a227;
+    border-radius:14px; padding:30px 34px;
+    display:none; animation:fadeIn 0.8s ease;
   }
-  .quote-card.visible { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
+  .quote-card.visible { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
   .quote-text {
-    font-size: 28px;
-    line-height: 1.55;
-    color: #d4e6f8;
-    font-style: italic;
-    margin-bottom: 24px;
+    font-size:27px; line-height:1.55; color:#d4e6f8; font-style:italic; margin-bottom:22px;
   }
-  .quote-text::before { content: '\201C'; color: #c9a227; font-size: 40px; line-height: 0; vertical-align: -10px; }
-  .quote-text::after  { content: '\201D'; color: #c9a227; font-size: 40px; line-height: 0; vertical-align: -10px; }
-
-  .quote-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .quote-staff {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .quote-avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 800;
-    color: #0a1628;
-  }
-  .quote-staff-name { font-size: 22px; font-weight: 700; color: #ffffff; }
-  .quote-staff-dept { font-size: 15px; color: #7a96b8; }
-  .quote-date       { font-size: 15px; color: #4a6080; }
-
-  .osat-pill {
-    background: rgba(76,223,137,0.15);
-    border: 1px solid rgba(76,223,137,0.3);
-    color: #4cdf89;
-    font-size: 15px;
-    font-weight: 700;
-    padding: 5px 14px;
-    border-radius: 20px;
-  }
-
-  /* Progress dots */
-  .dots {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 4px;
-  }
-  .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #1e3a5f;
-    transition: background 0.3s;
-  }
-  .dot.active { background: #c9a227; }
-
-  /* ── Footer ── */
-  .footer {
-    padding: 12px 56px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #1e3a5f;
-  }
-  .footer-stat { font-size: 16px; color: #7a96b8; }
-  .footer-stat span { color: #c9a227; font-weight: 700; }
-  .refreshed { font-size: 14px; color: #4a6080; }
+  .quote-text::before { content:'\201C'; color:#c9a227; font-size:38px; line-height:0; vertical-align:-10px; }
+  .quote-text::after  { content:'\201D'; color:#c9a227; font-size:38px; line-height:0; vertical-align:-10px; }
+  .quote-meta { display:flex; align-items:center; justify-content:space-between; }
+  .quote-staff { display:flex; align-items:center; gap:14px; }
+  .quote-avatar { width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#0a1628; }
+  .quote-staff-name { font-size:21px; font-weight:700; color:#ffffff; }
+  .quote-staff-dept { font-size:14px; color:#7a96b8; }
+  .quote-date { font-size:14px; color:#4a6080; }
+  .osat-pill { background:rgba(76,223,137,0.15); border:1px solid rgba(76,223,137,0.3); color:#4cdf89; font-size:14px; font-weight:700; padding:5px 12px; border-radius:20px; }
+  .dots { display:flex; gap:10px; justify-content:center; margin-top:4px; }
+  .dot { width:10px; height:10px; border-radius:50%; background:#1e3a5f; transition:background 0.3s; }
+  .dot.active { background:#c9a227; }
+  .footer { padding:12px 56px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #1e3a5f; }
+  .footer-stat { font-size:16px; color:#7a96b8; }
+  .footer-stat span { color:#c9a227; font-weight:700; }
+  .refreshed { font-size:14px; color:#4a6080; }
 </style>
 </head>
 <body>
-
-<!-- Header -->
 <div class="header">
   <div class="header-left">
     <div class="bw-badge">BEST WESTERN</div>
@@ -239,14 +88,10 @@
   <div class="header-title">⭐ Team Recognition — Guest Shout-Outs</div>
   <div class="header-date" id="headerDate"></div>
 </div>
-
-<!-- Main -->
 <div class="main">
-
-  <!-- Left: Leaderboard -->
+  <!-- Leaderboard -->
   <div class="leaderboard">
     <div class="lb-title">★ Most Mentioned by Guests</div>
-
     <div class="lb-card rank1" id="card-0">
       <div class="lb-rank">#1</div>
       <div class="lb-avatar" style="background:#c9a227;">DF</div>
@@ -255,271 +100,207 @@
         <div class="lb-dept">Breakfast Team</div>
         <div class="stars">★★★★★</div>
       </div>
-      <div class="lb-count">
-        <div class="num">6</div>
-        <div class="word">mentions</div>
-      </div>
+      <div class="lb-count"><div class="num">9</div><div class="word">mentions</div></div>
     </div>
-
     <div class="lb-card rank2" id="card-1">
       <div class="lb-rank">#2</div>
-      <div class="lb-avatar" style="background:#6baed6;">VM</div>
-      <div class="lb-info">
-        <div class="lb-name">Victoria Meckley</div>
-        <div class="lb-dept">Front Desk</div>
-        <div class="stars">★★★★★</div>
-      </div>
-      <div class="lb-count">
-        <div class="num">2</div>
-        <div class="word">mentions</div>
-      </div>
-    </div>
-
-    <div class="lb-card rank2" id="card-2">
-      <div class="lb-rank">#2</div>
-      <div class="lb-avatar" style="background:#74c476;">MF</div>
-      <div class="lb-info">
-        <div class="lb-name">Mackenzie Ferguson</div>
-        <div class="lb-dept">Front Desk</div>
-        <div class="stars">★★★★★</div>
-      </div>
-      <div class="lb-count">
-        <div class="num">2</div>
-        <div class="word">mentions</div>
-      </div>
-    </div>
-
-    <div class="lb-card rank2" id="card-3">
-      <div class="lb-rank">#2</div>
-      <div class="lb-avatar" style="background:#fd8d3c;">CW</div>
-      <div class="lb-info">
-        <div class="lb-name">Carmen Woolsey</div>
-        <div class="lb-dept">Front Desk</div>
-        <div class="stars">★★★★★</div>
-      </div>
-      <div class="lb-count">
-        <div class="num">2</div>
-        <div class="word">mentions</div>
-      </div>
-    </div>
-
-    <div class="lb-card rank3" id="card-4">
-      <div class="lb-rank">#5</div>
       <div class="lb-avatar" style="background:#9e9ac8;">LJ</div>
       <div class="lb-info">
         <div class="lb-name">Lucy Jones</div>
         <div class="lb-dept">Front Desk</div>
         <div class="stars">★★★★★</div>
       </div>
-      <div class="lb-count">
-        <div class="num">1</div>
-        <div class="word">mention</div>
-      </div>
+      <div class="lb-count"><div class="num">3</div><div class="word">mentions</div></div>
     </div>
-
+    <div class="lb-card rank2" id="card-2">
+      <div class="lb-rank">#3</div>
+      <div class="lb-avatar" style="background:#6baed6;">VM</div>
+      <div class="lb-info">
+        <div class="lb-name">Victoria Meckley</div>
+        <div class="lb-dept">Front Desk</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="lb-count"><div class="num">2</div><div class="word">mentions</div></div>
+    </div>
+    <div class="lb-card rank2" id="card-3">
+      <div class="lb-rank">#3</div>
+      <div class="lb-avatar" style="background:#74c476;">MF</div>
+      <div class="lb-info">
+        <div class="lb-name">Mackenzie Ferguson</div>
+        <div class="lb-dept">Front Desk</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="lb-count"><div class="num">2</div><div class="word">mentions</div></div>
+    </div>
+    <div class="lb-card rank2" id="card-4">
+      <div class="lb-rank">#3</div>
+      <div class="lb-avatar" style="background:#fd8d3c;">CW</div>
+      <div class="lb-info">
+        <div class="lb-name">Carmen Woolsey</div>
+        <div class="lb-dept">Front Desk</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="lb-count"><div class="num">2</div><div class="word">mentions</div></div>
+    </div>
+    <div class="lb-card rank3" id="card-5">
+      <div class="lb-rank">#6</div>
+      <div class="lb-avatar" style="background:#41b3a3;">KB</div>
+      <div class="lb-info">
+        <div class="lb-name">Kathleen Balsley</div>
+        <div class="lb-dept">Housekeeping</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="lb-count"><div class="num">1</div><div class="word">mention</div></div>
+    </div>
   </div>
 
-  <!-- Right: Rotating Quotes -->
+  <!-- Quote Carousel -->
   <div class="carousel-panel">
     <div class="carousel-header">What Our Guests Are Saying</div>
 
     <div id="quote-0" class="quote-card visible">
-      <div class="quote-text">Very Clean. Good and Coffee Great. Pillows — Best Ever. I have Traveled for 40 Years. Best I ever Slept On. All Great Deb and Cora — So Very Nice and Helpful!</div>
+      <div class="quote-text">Deb was amazing!! She took great care of me! Food was delicious. Everything was perfect! Keep up the great work! All of the staff I interacted with were super nice and helpful — you have a wonderful staff!</div>
       <div class="quote-meta">
         <div class="quote-staff">
           <div class="quote-avatar" style="background:#c9a227;">DF</div>
-          <div>
-            <div class="quote-staff-name">Debra Fugate</div>
-            <div class="quote-staff-dept">Breakfast Team</div>
-          </div>
+          <div><div class="quote-staff-name">Debra Fugate</div><div class="quote-staff-dept">Breakfast Team</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">100% OSAT</div>
-          <div class="quote-date">Jan 20, 2026</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Mar 10, 2026</div>
         </div>
       </div>
     </div>
 
     <div id="quote-1" class="quote-card">
-      <div class="quote-text">The receptionist Victoria was the best ever!! Customer Service A1!!!</div>
+      <div class="quote-text">It was awesome. Debra made sure the food was stocked at all times. Kathleen, Lucy and Deb made sure that me and my family were very comfortable. Felt like I was family and in my own home. Will be back soon!</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#6baed6;">VM</div>
-          <div>
-            <div class="quote-staff-name">Victoria Meckley</div>
-            <div class="quote-staff-dept">Front Desk</div>
-          </div>
+          <div class="quote-avatar" style="background:#9e9ac8;">LJ</div>
+          <div><div class="quote-staff-name">Lucy Jones + Team</div><div class="quote-staff-dept">Front Desk · Housekeeping · Breakfast</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">100% OSAT</div>
-          <div class="quote-date">Jan 5, 2026</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Mar 3, 2026</div>
         </div>
       </div>
     </div>
 
     <div id="quote-2" class="quote-card">
-      <div class="quote-text">Makenzie was a pleasure!! She seemed very happy with her job. She upgraded us to a suite so our grandson could stay with us a couple nights.</div>
+      <div class="quote-text">All Fresh, Hot. Coffee Great. Front Desk Girl and Deb in the kitchen — very comfortable beds and pillows, the best!</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#74c476;">MF</div>
-          <div>
-            <div class="quote-staff-name">Mackenzie Ferguson</div>
-            <div class="quote-staff-dept">Front Desk</div>
-          </div>
+          <div class="quote-avatar" style="background:#c9a227;">DF</div>
+          <div><div class="quote-staff-name">Debra Fugate</div><div class="quote-staff-dept">Breakfast Team</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">80% OSAT</div>
-          <div class="quote-date">Jan 3, 2026</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Feb 22, 2026</div>
         </div>
       </div>
     </div>
 
     <div id="quote-3" class="quote-card">
-      <div class="quote-text">Spotless room, comfy beds. Staff were delightful — especially Carmen at the desk and Debra at breakfast.</div>
+      <div class="quote-text">The receptionist Victoria was the best ever!! Customer Service A1!!!</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#fd8d3c;">CW</div>
-          <div>
-            <div class="quote-staff-name">Carmen Woolsey</div>
-            <div class="quote-staff-dept">Front Desk</div>
-          </div>
+          <div class="quote-avatar" style="background:#6baed6;">VM</div>
+          <div><div class="quote-staff-name">Victoria Meckley</div><div class="quote-staff-dept">Front Desk</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">100% OSAT</div>
-          <div class="quote-date">Dec 20, 2025</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Jan 5, 2026</div>
         </div>
       </div>
     </div>
 
     <div id="quote-4" class="quote-card">
-      <div class="quote-text">I have stayed here twice and both times Lucy at the front desk has been so accommodating — she is absolutely wonderful. I would highly recommend this place to anyone.</div>
+      <div class="quote-text">Makenzie was a pleasure!! She seemed very happy with her job. She upgraded us to a suite so our grandson could stay with us a couple nights.</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#9e9ac8;">LJ</div>
-          <div>
-            <div class="quote-staff-name">Lucy Jones</div>
-            <div class="quote-staff-dept">Front Desk</div>
-          </div>
+          <div class="quote-avatar" style="background:#74c476;">MF</div>
+          <div><div class="quote-staff-name">Mackenzie Ferguson</div><div class="quote-staff-dept">Front Desk</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">100% OSAT</div>
-          <div class="quote-date">Dec 20, 2025</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">80% OSAT</div><div class="quote-date">Jan 3, 2026</div>
         </div>
       </div>
     </div>
 
     <div id="quote-5" class="quote-card">
-      <div class="quote-text">Debra was fantastic. She met the needs of the entire group. Very friendly.</div>
+      <div class="quote-text">I have stayed here twice and both times Lucy at the front desk has been so accommodating — she is absolutely wonderful. I would highly recommend this place to anyone.</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#c9a227;">DF</div>
-          <div>
-            <div class="quote-staff-name">Debra Fugate</div>
-            <div class="quote-staff-dept">Breakfast Team</div>
-          </div>
+          <div class="quote-avatar" style="background:#9e9ac8;">LJ</div>
+          <div><div class="quote-staff-name">Lucy Jones</div><div class="quote-staff-dept">Front Desk</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">80% OSAT</div>
-          <div class="quote-date">Nov 18, 2025</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Dec 20, 2025</div>
         </div>
       </div>
     </div>
 
     <div id="quote-6" class="quote-card">
-      <div class="quote-text">Staff was exceptional. The Halloween decorations were fun. Breakfast amazing, especially Deb's bacon and eggs.</div>
+      <div class="quote-text">Spotless room, comfy beds. Staff were delightful — especially Carmen at the desk and Debra at breakfast.</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#c9a227;">DF</div>
-          <div>
-            <div class="quote-staff-name">Debra Fugate</div>
-            <div class="quote-staff-dept">Breakfast Team</div>
-          </div>
+          <div class="quote-avatar" style="background:#fd8d3c;">CW</div>
+          <div><div class="quote-staff-name">Carmen Woolsey</div><div class="quote-staff-dept">Front Desk</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">100% OSAT</div>
-          <div class="quote-date">Oct 1, 2025</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Dec 20, 2025</div>
         </div>
       </div>
     </div>
 
     <div id="quote-7" class="quote-card">
-      <div class="quote-text">Makenzie was so courteous and professional. We received an upgrade to a suite as a rewards member so our young grandson could stay with us. She took the time to bring up bedding for the pullout.</div>
+      <div class="quote-text">Staff was exceptional. The Halloween decorations were fun. Breakfast amazing, especially Deb's bacon and eggs.</div>
       <div class="quote-meta">
         <div class="quote-staff">
-          <div class="quote-avatar" style="background:#74c476;">MF</div>
-          <div>
-            <div class="quote-staff-name">Mackenzie Ferguson</div>
-            <div class="quote-staff-dept">Front Desk</div>
-          </div>
+          <div class="quote-avatar" style="background:#c9a227;">DF</div>
+          <div><div class="quote-staff-name">Debra Fugate</div><div class="quote-staff-dept">Breakfast Team</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div class="osat-pill">80% OSAT</div>
-          <div class="quote-date">Dec 31, 2025</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="osat-pill">100% OSAT</div><div class="quote-date">Oct 1, 2025</div>
         </div>
       </div>
     </div>
 
-    <!-- Dots -->
     <div class="dots" id="dots"></div>
-
   </div>
 </div>
-
-<!-- Footer -->
 <div class="footer">
-  <div class="footer-stat">13 positive guest shout-outs · 5 team members recognized</div>
+  <div class="footer-stat">19 positive guest shout-outs · <span>6 team members</span> recognized</div>
   <div class="footer-stat">Data Source: <span>Medallia Guest Survey Analysis</span></div>
   <div class="refreshed" id="refreshTime"></div>
 </div>
-
 <script>
-const TOTAL_QUOTES = 8;
+const TOTAL = 8;
+const CARD_MAP = [0, 1, 0, 2, 3, 1, 4, 0];
 let current = 0;
-let highlightedCard = 0;
 
 const now = new Date();
 document.getElementById('headerDate').textContent =
-  now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
 document.getElementById('refreshTime').textContent =
-  'Last updated: ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+  'Last updated: ' + now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 
-// Build dots
 const dotsEl = document.getElementById('dots');
-for (let i = 0; i < TOTAL_QUOTES; i++) {
+for (let i = 0; i < TOTAL; i++) {
   const d = document.createElement('div');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.id = 'dot-' + i;
+  d.className = 'dot' + (i===0?' active':'');
+  d.id = 'dot-'+i;
   dotsEl.appendChild(d);
 }
 
-// Which card index to highlight in leaderboard for each quote
-const QUOTE_CARD_MAP = [0, 1, 2, 3, 4, 0, 0, 2];
-
 function showQuote(idx) {
-  // Hide all quotes
-  for (let i = 0; i < TOTAL_QUOTES; i++) {
-    const el = document.getElementById('quote-' + i);
-    el.classList.remove('visible');
-    document.getElementById('dot-' + i).classList.remove('active');
+  for (let i=0;i<TOTAL;i++) {
+    document.getElementById('quote-'+i).classList.remove('visible');
+    document.getElementById('dot-'+i).classList.remove('active');
   }
-  // Show current
-  document.getElementById('quote-' + idx).classList.add('visible');
-  document.getElementById('dot-' + idx).classList.add('active');
-
-  // Highlight leaderboard card
-  for (let i = 0; i < 5; i++) {
-    document.getElementById('card-' + i).classList.remove('active');
-  }
-  const cardIdx = QUOTE_CARD_MAP[idx];
-  document.getElementById('card-' + cardIdx).classList.add('active');
+  for (let i=0;i<6;i++) document.getElementById('card-'+i).classList.remove('active');
+  document.getElementById('quote-'+idx).classList.add('visible');
+  document.getElementById('dot-'+idx).classList.add('active');
+  document.getElementById('card-'+CARD_MAP[idx]).classList.add('active');
 }
 
-// Rotate every 8 seconds
-setInterval(() => {
-  current = (current + 1) % TOTAL_QUOTES;
-  showQuote(current);
-}, 8000);
-
+setInterval(()=>{ current=(current+1)%TOTAL; showQuote(current); }, 8000);
 showQuote(0);
 </script>
 </body>

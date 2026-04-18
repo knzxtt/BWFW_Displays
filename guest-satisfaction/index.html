@@ -7,153 +7,81 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     background: #0a1628;
     color: #ffffff;
     font-family: 'Segoe UI', Arial, sans-serif;
-    width: 1920px;
-    height: 1080px;
+    width: 1920px; height: 1080px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
   }
-
-  /* ── Header ── */
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 28px 56px 20px;
     border-bottom: 3px solid #c9a227;
   }
   .header-left { display: flex; align-items: center; gap: 20px; }
   .bw-badge {
-    background: #c9a227;
-    color: #0a1628;
-    font-weight: 900;
-    font-size: 22px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    letter-spacing: 1px;
+    background: #c9a227; color: #0a1628;
+    font-weight: 900; font-size: 22px;
+    padding: 8px 16px; border-radius: 6px; letter-spacing: 1px;
   }
   .hotel-name { font-size: 26px; font-weight: 700; color: #e8e8e8; }
   .header-title { font-size: 38px; font-weight: 800; color: #c9a227; letter-spacing: 1px; }
-  .header-date { font-size: 20px; color: #9eb4d4; }
-
-  /* ── Main layout ── */
+  .header-date  { font-size: 20px; color: #9eb4d4; }
   .main {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 0;
-    padding: 32px 56px;
+    flex: 1; display: grid; grid-template-columns: 340px 1fr;
+    padding: 32px 56px; gap: 0; min-height: 0;
   }
-
-  /* ── Score panel (left) ── */
   .score-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding-right: 40px;
-    border-right: 2px solid #1e3a5f;
+    display: flex; flex-direction: column; gap: 24px;
+    padding-right: 40px; border-right: 2px solid #1e3a5f;
   }
-
   .score-card {
-    background: #0f2340;
-    border-radius: 16px;
-    padding: 28px 24px;
-    border: 1px solid #1e3a5f;
-    text-align: center;
+    background: #0f2340; border-radius: 16px; padding: 28px 24px;
+    border: 1px solid #1e3a5f; text-align: center;
   }
   .score-card.featured {
     background: linear-gradient(135deg, #0f2340 0%, #1a3a6b 100%);
     border: 2px solid #c9a227;
   }
-
-  .score-label {
-    font-size: 16px;
-    color: #9eb4d4;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-  }
-  .score-value {
-    font-size: 72px;
-    font-weight: 900;
-    line-height: 1;
-    color: #ffffff;
-  }
+  .score-label { font-size: 16px; color: #9eb4d4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .score-value { font-size: 72px; font-weight: 900; line-height: 1; color: #ffffff; }
   .score-value.high { color: #4cdf89; }
   .score-value.mid  { color: #f5c518; }
   .score-value.low  { color: #ff6b6b; }
   .score-unit { font-size: 28px; color: #9eb4d4; font-weight: 400; }
-
-  .score-sub { font-size: 15px; color: #7a96b8; margin-top: 8px; }
-
+  .score-sub  { font-size: 15px; color: #7a96b8; margin-top: 8px; }
   .trend-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: 700;
-    margin-top: 10px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 16px; font-weight: 700; margin-top: 10px;
   }
   .trend-badge.up   { background: rgba(76,223,137,0.15); color: #4cdf89; }
   .trend-badge.down { background: rgba(255,107,107,0.15); color: #ff6b6b; }
   .trend-badge.flat { background: rgba(245,197,24,0.15);  color: #f5c518; }
-
-  .mini-scores {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .mini-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .mini-score {
-    background: #0f2340;
-    border-radius: 12px;
-    padding: 16px 14px;
-    border: 1px solid #1e3a5f;
-    text-align: center;
+    background: #0f2340; border-radius: 12px; padding: 16px 14px;
+    border: 1px solid #1e3a5f; text-align: center;
   }
   .mini-score .label { font-size: 13px; color: #7a96b8; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
   .mini-score .val   { font-size: 28px; font-weight: 800; color: #ffffff; }
-
-  /* ── Chart panel (right) ── */
-  .chart-panel {
-    display: flex;
-    flex-direction: column;
-    padding-left: 40px;
-  }
-  .chart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  .chart-title { font-size: 20px; font-weight: 700; color: #9eb4d4; text-transform: uppercase; letter-spacing: 2px; }
+  .chart-panel { display: flex; flex-direction: column; padding-left: 40px; }
+  .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .chart-title  { font-size: 20px; font-weight: 700; color: #9eb4d4; text-transform: uppercase; letter-spacing: 2px; }
   .chart-legend { font-size: 15px; color: #7a96b8; }
-  .chart-wrap { flex: 1; position: relative; min-height: 0; }
-
-  /* ── Footer ── */
+  .chart-wrap   { flex: 1; position: relative; min-height: 0; }
   .footer {
-    padding: 14px 56px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 14px 56px; display: flex; justify-content: space-between; align-items: center;
     border-top: 1px solid #1e3a5f;
   }
   .footer-stat { font-size: 16px; color: #7a96b8; }
   .footer-stat span { color: #c9a227; font-weight: 700; }
   .refreshed { font-size: 14px; color: #4a6080; }
-
-  .star { color: #c9a227; }
 </style>
 </head>
 <body>
-
-<!-- Header -->
 <div class="header">
   <div class="header-left">
     <div class="bw-badge">BEST WESTERN</div>
@@ -162,29 +90,19 @@
   <div class="header-title">★ Guest Satisfaction Scores</div>
   <div class="header-date" id="headerDate"></div>
 </div>
-
-<!-- Main -->
 <div class="main">
-
-  <!-- Left: Score Cards -->
   <div class="score-panel">
-
-    <!-- Featured OSAT -->
     <div class="score-card featured">
       <div class="score-label">30-Day Avg OSAT</div>
-      <div class="score-value mid" id="osatScore">64.7<span class="score-unit">%</span></div>
-      <div class="score-sub">Based on <strong>70</strong> guest surveys</div>
-      <div id="trendBadge" class="trend-badge up">↑ +11 pts vs. last week</div>
+      <div class="score-value mid" id="osatScore"></div>
+      <div class="score-sub" id="responseCount"></div>
+      <div id="trendBadge" class="trend-badge"></div>
     </div>
-
-    <!-- 7-day recent -->
     <div class="score-card">
       <div class="score-label">Last 7 Days</div>
-      <div class="score-value high" id="recentScore">68.9<span class="score-unit">%</span></div>
-      <div class="score-sub" id="recentCount">26 responses</div>
+      <div class="score-value" id="recentScore"></div>
+      <div class="score-sub" id="recentCount"></div>
     </div>
-
-    <!-- Mini breakdown grid -->
     <div class="mini-scores">
       <div class="mini-score">
         <div class="label">This Week</div>
@@ -196,17 +114,14 @@
       </div>
       <div class="mini-score">
         <div class="label">Responses</div>
-        <div class="val">70</div>
+        <div class="val" id="respMini"></div>
       </div>
       <div class="mini-score">
         <div class="label">Best Day</div>
-        <div class="val" style="color:#4cdf89;">100%</div>
+        <div class="val" style="color:#4cdf89;" id="bestDay"></div>
       </div>
     </div>
-
   </div>
-
-  <!-- Right: Chart -->
   <div class="chart-panel">
     <div class="chart-header">
       <div class="chart-title">30-Day Trend</div>
@@ -216,191 +131,110 @@
       <canvas id="osatChart"></canvas>
     </div>
   </div>
-
 </div>
-
-<!-- Footer -->
 <div class="footer">
-  <div class="footer-stat">Total All-Time Responses: <span>11,550</span></div>
+  <div class="footer-stat">Total All-Time Responses: <span>11,550+</span></div>
   <div class="footer-stat">Data Source: <span>Medallia / Best Western Surveys</span></div>
   <div class="refreshed" id="refreshTime"></div>
 </div>
-
 <script>
-// ── Embedded data (regenerate to refresh) ──────────────────────────────────
 const DATA = {
-  generated: "2026-04-13",
-  avg30: 64.7,
-  responses30: 70,
+  generated: "2026-04-17",
+  avg30: 67.5,
+  responses30: 68,
   daily: [
-    { date: "3/15", osat: 55.0, cnt: 2 },
-    { date: "3/16", osat: 46.7, cnt: 6 },
-    { date: "3/17", osat: 65.0, cnt: 4 },
     { date: "3/19", osat: 100.0, cnt: 1 },
-    { date: "3/20", osat: 86.7, cnt: 3 },
-    { date: "3/21", osat: 20.0, cnt: 1 },
-    { date: "3/22", osat: 50.0, cnt: 1 },
-    { date: "3/23", osat: 52.9, cnt: 7 },
-    { date: "3/24", osat: 45.0, cnt: 2 },
-    { date: "3/25", osat: 90.0, cnt: 1 },
-    { date: "3/26", osat: 60.0, cnt: 2 },
+    { date: "3/20", osat: 90.0,  cnt: 3 },
+    { date: "3/21", osat: 20.0,  cnt: 1 },
+    { date: "3/22", osat: 50.0,  cnt: 1 },
+    { date: "3/23", osat: 51.4,  cnt: 7 },
+    { date: "3/24", osat: 60.0,  cnt: 2 },
+    { date: "3/25", osat: 95.0,  cnt: 2 },
+    { date: "3/26", osat: 60.0,  cnt: 2 },
     { date: "3/27", osat: 100.0, cnt: 1 },
-    { date: "3/28", osat: 85.0, cnt: 2 },
-    { date: "3/29", osat: 73.3, cnt: 3 },
-    { date: "3/30", osat: 65.0, cnt: 2 },
-    { date: "4/1",  osat: 80.0, cnt: 2 },
-    { date: "4/3",  osat: 90.0, cnt: 2 },
-    { date: "4/4",  osat: 45.0, cnt: 2 },
-    { date: "4/6",  osat: 55.0, cnt: 4 },
-    { date: "4/7",  osat: 56.7, cnt: 6 },
-    { date: "4/8",  osat: 43.3, cnt: 3 },
-    { date: "4/10", osat: 76.0, cnt: 5 },
-    { date: "4/11", osat: 60.0, cnt: 1 },
-    { date: "4/12", osat: 85.7, cnt: 7 },
+    { date: "3/28", osat: 75.0,  cnt: 2 },
+    { date: "3/29", osat: 73.3,  cnt: 3 },
+    { date: "3/30", osat: 60.0,  cnt: 2 },
+    { date: "4/1",  osat: 80.0,  cnt: 2 },
+    { date: "4/3",  osat: 90.0,  cnt: 2 },
+    { date: "4/4",  osat: 65.0,  cnt: 2 },
+    { date: "4/6",  osat: 55.0,  cnt: 4 },
+    { date: "4/7",  osat: 55.0,  cnt: 6 },
+    { date: "4/8",  osat: 43.3,  cnt: 3 },
+    { date: "4/10", osat: 76.0,  cnt: 5 },
+    { date: "4/11", osat: 60.0,  cnt: 1 },
+    { date: "4/12", osat: 85.7,  cnt: 7 },
+    { date: "4/13", osat: 70.0,  cnt: 3 },
+    { date: "4/14", osat: 65.0,  cnt: 2 },
+    { date: "4/15", osat: 20.0,  cnt: 1 },
+    { date: "4/16", osat: 73.3,  cnt: 3 },
   ]
 };
 
-// ── Compute derived stats ──────────────────────────────────────────────────
-const recent7 = DATA.daily.slice(-7);
-const prev7   = DATA.daily.slice(-14, -7);
-
-const avg7 = recent7.reduce((s,d) => s + d.osat * d.cnt, 0) /
-             Math.max(1, recent7.reduce((s,d) => s + d.cnt, 0));
-const prevAvg7 = prev7.length
-  ? prev7.reduce((s,d) => s + d.osat * d.cnt, 0) /
-    Math.max(1, prev7.reduce((s,d) => s + d.cnt, 0))
-  : avg7;
-
-const cnt7 = recent7.reduce((s,d) => s + d.cnt, 0);
-const delta = avg7 - prevAvg7;
-
-// ── Populate DOM ───────────────────────────────────────────────────────────
-const now = new Date();
-document.getElementById('headerDate').textContent =
-  now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
-document.getElementById('refreshTime').textContent =
-  'Last updated: ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
-
-const avgEl = document.getElementById('osatScore');
-avgEl.innerHTML = DATA.avg30.toFixed(1) + '<span class="score-unit">%</span>';
-avgEl.className = 'score-value ' + (DATA.avg30 >= 75 ? 'high' : DATA.avg30 >= 60 ? 'mid' : 'low');
-
-const recentEl = document.getElementById('recentScore');
-recentEl.innerHTML = avg7.toFixed(1) + '<span class="score-unit">%</span>';
-recentEl.className = 'score-value ' + (avg7 >= 75 ? 'high' : avg7 >= 60 ? 'mid' : 'low');
-document.getElementById('recentCount').textContent = cnt7 + ' responses';
-
-// This week / last week
-const thisWeekData = DATA.daily.slice(-5);
-const lastWeekData = DATA.daily.slice(-10, -5);
-const tw = thisWeekData.reduce((s,d) => s + d.osat * d.cnt, 0) / Math.max(1, thisWeekData.reduce((s,d) => s+d.cnt,0));
-const lw = lastWeekData.reduce((s,d) => s + d.osat * d.cnt, 0) / Math.max(1, lastWeekData.reduce((s,d) => s+d.cnt,0));
-document.getElementById('thisWeekScore').textContent = tw.toFixed(0) + '%';
-document.getElementById('lastWeekScore').textContent = lw.toFixed(0) + '%';
-
-const badge = document.getElementById('trendBadge');
-if (delta > 2) {
-  badge.className = 'trend-badge up';
-  badge.textContent = '↑ +' + Math.abs(delta).toFixed(0) + ' pts vs. prev week';
-} else if (delta < -2) {
-  badge.className = 'trend-badge down';
-  badge.textContent = '↓ −' + Math.abs(delta).toFixed(0) + ' pts vs. prev week';
-} else {
-  badge.className = 'trend-badge flat';
-  badge.textContent = '→ Steady vs. prev week';
-}
-
-// ── Chart ──────────────────────────────────────────────────────────────────
 function colorForScore(v) {
   if (v >= 75) return 'rgba(76,223,137,0.9)';
   if (v >= 60) return 'rgba(245,197,24,0.9)';
   return 'rgba(255,107,107,0.9)';
 }
 
-const labels = DATA.daily.map(d => d.date);
-const values = DATA.daily.map(d => d.osat);
-const barColors = values.map(colorForScore);
+const recent7 = DATA.daily.slice(-7);
+const prev7   = DATA.daily.slice(-14, -7);
+const avg7 = recent7.reduce((s,d)=>s+d.osat*d.cnt,0) / Math.max(1, recent7.reduce((s,d)=>s+d.cnt,0));
+const prevAvg7 = prev7.length ? prev7.reduce((s,d)=>s+d.osat*d.cnt,0) / Math.max(1,prev7.reduce((s,d)=>s+d.cnt,0)) : avg7;
+const cnt7 = recent7.reduce((s,d)=>s+d.cnt,0);
+const delta = avg7 - prevAvg7;
+const best = Math.max(...DATA.daily.map(d=>d.osat));
 
-// Goal line at 80
-const goalLine = values.map(() => 80);
+const now = new Date();
+document.getElementById('headerDate').textContent =
+  now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+document.getElementById('refreshTime').textContent =
+  'Last updated: ' + now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 
-const ctx = document.getElementById('osatChart').getContext('2d');
-new Chart(ctx, {
+document.getElementById('osatScore').innerHTML = DATA.avg30 + '<span class="score-unit">%</span>';
+document.getElementById('osatScore').className = 'score-value ' + (DATA.avg30>=75?'high':DATA.avg30>=60?'mid':'low');
+document.getElementById('responseCount').textContent = 'Based on ' + DATA.responses30 + ' guest surveys';
+
+document.getElementById('recentScore').innerHTML = avg7.toFixed(1) + '<span class="score-unit">%</span>';
+document.getElementById('recentScore').className = 'score-value ' + (avg7>=75?'high':avg7>=60?'mid':'low');
+document.getElementById('recentCount').textContent = cnt7 + ' responses';
+
+document.getElementById('respMini').textContent = DATA.responses30;
+document.getElementById('bestDay').textContent = best + '%';
+
+const tw = DATA.daily.slice(-5).reduce((s,d)=>s+d.osat*d.cnt,0) / Math.max(1,DATA.daily.slice(-5).reduce((s,d)=>s+d.cnt,0));
+const lw = DATA.daily.slice(-10,-5).reduce((s,d)=>s+d.osat*d.cnt,0) / Math.max(1,DATA.daily.slice(-10,-5).reduce((s,d)=>s+d.cnt,0));
+document.getElementById('thisWeekScore').textContent = tw.toFixed(0) + '%';
+document.getElementById('lastWeekScore').textContent = lw.toFixed(0) + '%';
+
+const badge = document.getElementById('trendBadge');
+if (delta > 2)       { badge.className='trend-badge up';   badge.textContent='↑ +'+Math.abs(delta).toFixed(0)+' pts vs. prev week'; }
+else if (delta < -2) { badge.className='trend-badge down'; badge.textContent='↓ −'+Math.abs(delta).toFixed(0)+' pts vs. prev week'; }
+else                 { badge.className='trend-badge flat'; badge.textContent='→ Steady vs. prev week'; }
+
+const labels = DATA.daily.map(d=>d.date);
+const values = DATA.daily.map(d=>d.osat);
+const rolling = values.map((v,i)=>{ const s=values.slice(Math.max(0,i-3),i+1); return s.reduce((a,b)=>a+b,0)/s.length; });
+
+new Chart(document.getElementById('osatChart').getContext('2d'), {
   data: {
     labels,
     datasets: [
-      {
-        type: 'bar',
-        label: 'Daily OSAT',
-        data: values,
-        backgroundColor: barColors,
-        borderRadius: 6,
-        borderSkipped: false,
-        order: 2,
-      },
-      {
-        type: 'line',
-        label: '7-Day Rolling Avg',
-        data: (() => {
-          // rolling average
-          return values.map((v, i) => {
-            const slice = values.slice(Math.max(0, i-3), i+1);
-            return slice.reduce((a,b) => a+b, 0) / slice.length;
-          });
-        })(),
-        borderColor: '#c9a227',
-        borderWidth: 3,
-        pointRadius: 0,
-        tension: 0.4,
-        fill: false,
-        order: 1,
-      },
-      {
-        type: 'line',
-        label: 'Goal (80%)',
-        data: goalLine,
-        borderColor: 'rgba(255,255,255,0.3)',
-        borderWidth: 2,
-        borderDash: [8, 4],
-        pointRadius: 0,
-        fill: false,
-        order: 0,
-      }
+      { type:'bar',  label:'Daily OSAT',      data:values,  backgroundColor:values.map(colorForScore), borderRadius:6, borderSkipped:false, order:2 },
+      { type:'line', label:'Rolling Avg',      data:rolling, borderColor:'#c9a227', borderWidth:3, pointRadius:0, tension:0.4, fill:false, order:1 },
+      { type:'line', label:'Goal (80%)',        data:values.map(()=>80), borderColor:'rgba(255,255,255,0.3)', borderWidth:2, borderDash:[8,4], pointRadius:0, fill:false, order:0 },
     ]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: { duration: 1200, easing: 'easeOutQuart' },
-    plugins: {
-      legend: {
-        labels: {
-          color: '#9eb4d4',
-          font: { size: 14 },
-          boxWidth: 20,
-          padding: 20
-        }
-      },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%`
-        }
-      }
+    responsive:true, maintainAspectRatio:false,
+    animation:{ duration:1200, easing:'easeOutQuart' },
+    plugins:{
+      legend:{ labels:{ color:'#9eb4d4', font:{size:14}, boxWidth:20, padding:20 } },
+      tooltip:{ callbacks:{ label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%` } }
     },
-    scales: {
-      x: {
-        grid: { color: 'rgba(255,255,255,0.04)' },
-        ticks: { color: '#7a96b8', font: { size: 13 } }
-      },
-      y: {
-        min: 0, max: 105,
-        grid: { color: 'rgba(255,255,255,0.07)' },
-        ticks: {
-          color: '#7a96b8',
-          font: { size: 13 },
-          callback: v => v + '%'
-        }
-      }
+    scales:{
+      x:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#7a96b8',font:{size:13}} },
+      y:{ min:0, max:105, grid:{color:'rgba(255,255,255,0.07)'}, ticks:{color:'#7a96b8',font:{size:13},callback:v=>v+'%'} }
     }
   }
 });
